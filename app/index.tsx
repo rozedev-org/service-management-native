@@ -1,15 +1,10 @@
-import { Text, View } from "react-native";
+import { GluestackUIProvider, Text } from "@gluestack-ui/themed";
+import { config } from "@gluestack-ui/config"; // Optional if you want to use default theme
 
 export default function Index() {
   return (
-    <View
-      style={{
-        flex: 1,
-        justifyContent: "center",
-        alignItems: "center",
-      }}
-    >
-      <Text>Edit app/index.tsx to edit this screen.</Text>
-    </View>
+    <GluestackUIProvider config={config}>
+      <Text>Hello World!</Text>
+    </GluestackUIProvider>
   );
 }
