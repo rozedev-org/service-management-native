@@ -1,32 +1,41 @@
+import { MenuSidebar } from "@/components/Menu";
 import { Stack } from "expo-router";
-
+import { config } from "@gluestack-ui/config";
+import { GluestackUIProvider } from "@gluestack-ui/themed";
 export default function RootLayout() {
+  const titleScreen = "Service Management";
   return (
-    <Stack>
-      <Stack.Screen
-        name="index"
-        options={{
-          title: "Pagina Inicial",
-        }}
-      />
-      <Stack.Screen
-        name="home"
-        options={{
-          title: "Dashboard",
-        }}
-      />
-      <Stack.Screen
-        name="requirements/index"
-        options={{
-          title: "Requerimientos",
-        }}
-      />
-      <Stack.Screen
-        name="requirements/detail/[id]"
-        options={{
-          title: "Requerimiento",
-        }}
-      />
-    </Stack>
+    <GluestackUIProvider config={config}>
+      <Stack>
+        <Stack.Screen
+          name="index"
+          options={{
+            title: titleScreen,
+            headerRight: () => <MenuSidebar />,
+          }}
+        />
+        <Stack.Screen
+          name="requirements/index"
+          options={{
+            title: titleScreen,
+            headerRight: () => <MenuSidebar />,
+          }}
+        />
+        <Stack.Screen
+          name="requirements/detail/[id]"
+          options={{
+            title: titleScreen,
+            headerRight: () => <MenuSidebar />,
+          }}
+        />
+        <Stack.Screen
+          name="users/index"
+          options={{
+            title: titleScreen,
+            headerRight: () => <MenuSidebar />,
+          }}
+        />
+      </Stack>
+    </GluestackUIProvider>
   );
 }
