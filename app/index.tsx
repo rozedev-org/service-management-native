@@ -4,12 +4,12 @@ import {
   Avatar,
   AvatarImage,
   Box,
+  Button,
   HStack,
   Text,
   VStack,
   View,
 } from "@gluestack-ui/themed";
-import axios from "axios";
 import { useEffect, useState } from "react";
 import { FlatList } from "react-native";
 interface PaginatedResponse<T> {
@@ -36,52 +36,64 @@ interface UserEntity {
 export default function Index() {
   const [users, setUsers] = useState<UserEntity[]>([]);
   const [products, setProducts] = useState<Product[]>([]);
-  useEffect(() => {
-    const fetchProducts = async () => {
-      try {
-        const response = await axios.get("https://dummyjson.com/products");
-        setProducts(response.data.products);
-      } catch (error) {
-        console.log(error);
-      }
-    };
-    fetchProducts();
-  }, []);
+  // useEffect(() => {
+  //   const fetchProducts = async () => {
+  //     try {
+  //       const response = await axios.get("https://dummyjson.com/products");
+  //       setProducts(response.data.products);
+  //     } catch (error) {
+  //       console.log(error);
+  //     }
+  //   };
+  //   fetchProducts();
+  // }, []);
 
   useEffect(() => {
-    console.log("entre");
-    const fetchUsers = async () => {
-      console.log("fetch");
-      try {
-        const login = await axiosInstace.post(
-          `/auth/login`,
-          {
-            username: `hd`,
-            password: `hd`,
-          },
-          {
-            validateStatus: function (status) {
-              return status < 500; // Resolve only if the status code is less than 500
-            },
-          }
-        );
-        console.log("login", login);
-        const response = await axiosInstace.get<PaginatedResponse<UserEntity>>(
-          `/users?page=1`
-        );
-        setUsers(response.data.data);
-      } catch (error) {
-        console.log(error);
-      }
-    };
     fetchUsers();
-    console.log(users);
   }, []);
+
+  const fetchUsers = async () => {
+    //   console.log("fetch");
+    try {
+      const login = await axiosInstace.post(`/auth/login`, {
+        username: `jc`,
+        password: `jc`,
+      });
+      const response = await axiosInstace.get<PaginatedResponse<UserEntity>>(
+        `/users?page=1`
+      );
+      setUsers(response.data.data);
+    } catch (error: any) {
+      console.log(error.message);
+      console.log("--------------------------------------------------------\n");
+      console.log(error.name);
+      console.log("--------------------------------------------------------\n");
+      console.log(error.code);
+      console.log("--------------------------------------------------------\n");
+      console.log(error.config);
+      console.log("--------------------------------------------------------\n");
+      console.log(error.request);
+    }
+  };
 
   return (
     <View>
-      <FlatList<Product>
-        data={products}
+      <Button
+        onPress={async () => {
+          await fetchUsers();
+        }}
+      >
+        <Text>Hola</Text>
+      </Button>
+      <Button
+        onPress={async () => {
+          console.log(users);
+        }}
+      >
+        <Text>users</Text>
+      </Button>
+      <FlatList<UserEntity>
+        data={users}
         renderItem={({ item }) => (
           <Box
             borderBottomWidth="$1"
@@ -94,22 +106,16 @@ export default function Index() {
             py="$2"
           >
             <HStack space="md" justifyContent="space-between">
-              <Avatar size="md">
-                <AvatarImage
-                  source={{ uri: item.thumbnail }}
-                  alt={item.title}
-                />
-              </Avatar>
               <VStack>
                 <Text
                   color="$coolGray800"
                   fontWeight="$bold"
                   $dark-color="$warmGray100"
                 >
-                  {item.title}
+                  {item.userName}
                 </Text>
                 <Text color="$coolGray600" $dark-color="$warmGray200">
-                  {item.description}
+                  {item.firstName} {item.lastName}
                 </Text>
               </VStack>
               <Text
@@ -118,7 +124,7 @@ export default function Index() {
                 alignSelf="flex-start"
                 $dark-color="$warmGray100"
               >
-                {item.price}
+                {item.id}
               </Text>
             </HStack>
           </Box>
