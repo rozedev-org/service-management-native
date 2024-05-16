@@ -1,11 +1,8 @@
-import { HStack, Text, VStack, View } from "@gluestack-ui/themed";
-
+import { Text, View } from "@gluestack-ui/themed";
 export default function Index() {
   return (
     <View>
-      <VStack>
-        <Text>homepage</Text>
-      </VStack>
+      <Text>homePage</Text>
     </View>
   );
 }
