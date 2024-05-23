@@ -1,6 +1,6 @@
 import { FlatList, TextInput } from "react-native";
 import React, { useEffect, useState } from "react";
-import { axiosInstace } from "@/utils/axiosInstance";
+import { axiosInstace } from "@/common/utils/axiosInstance";
 import {
   Box,
   HStack,
