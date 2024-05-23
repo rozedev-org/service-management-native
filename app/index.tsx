@@ -11,7 +11,11 @@ export default function Index() {
     const intervalId = setInterval(() => {
       NetInfo.fetch().then((state) => {
         setNetwork(state);
-        setType(state.type);
+        if (state.type == "cellular") {
+          setType("Telefono");
+        } else {
+          setType(state.type);
+        }
         if (state.type === "wifi") {
           setWifiSignal(state.details.strength);
         }
