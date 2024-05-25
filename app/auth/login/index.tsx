@@ -10,23 +10,21 @@ import {
   FormControlLabelText,
   Input,
   InputField,
-  Text,
   View,
 } from "@gluestack-ui/themed";
-import { Field, useForm } from "@tanstack/react-form";
 
-const index = () => {
-  const { loginForm } = useLoginForm();
-  const { handleSubmit } = useForm();
+const loginPage = () => {
+  const { LoginForm } = useLoginForm();
 
   const handleSubmitLogin = async () => {
-    await handleSubmit();
+    await LoginForm.handleSubmit();
     console.log("submit");
   };
   return (
     <View>
-      <loginForm.Field name="username">
-        {(Field) => (
+      {LoginForm.Field({
+        name: "username",
+        children: (field) => (
           <FormControl
             size="md"
             isDisabled={false}
@@ -38,13 +36,20 @@ const index = () => {
               <FormControlLabelText>Username</FormControlLabelText>
             </FormControlLabel>
             <Input>
-              <InputField type="text" defaultValue="" placeholder="username" />
+              <InputField
+                onChangeText={field.handleChange}
+                value={field.getValue()}
+                type="text"
+                defaultValue=""
+                placeholder="username"
+              />
             </Input>
           </FormControl>
-        )}
-      </loginForm.Field>
-      <loginForm.Field name="password">
-        {(Field) => (
+        ),
+      })}
+      {LoginForm.Field({
+        name: "password",
+        children: (field) => (
           <FormControl
             size="md"
             isDisabled={false}
@@ -53,18 +58,20 @@ const index = () => {
             isRequired={false}
           >
             <FormControlLabel>
-              <FormControlLabelText>password</FormControlLabelText>
+              <FormControlLabelText>Password</FormControlLabelText>
             </FormControlLabel>
             <Input>
               <InputField
+                onChangeText={field.handleChange}
+                value={field.getValue()}
                 type="password"
                 defaultValue=""
-                placeholder="password"
+                placeholder="Password"
               />
             </Input>
           </FormControl>
-        )}
-      </loginForm.Field>
+        ),
+      })}
       <Button
         size="md"
         variant="solid"
@@ -80,4 +87,4 @@ const index = () => {
   );
 };
 
-export default index;
+export default loginPage;

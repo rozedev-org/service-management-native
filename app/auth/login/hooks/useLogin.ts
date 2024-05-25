@@ -3,20 +3,21 @@ import { useForm } from "@tanstack/react-form";
 import { axiosInstace } from "@/common/utils/axiosInstance";
 import { LoginEntity } from "../types/login.types";
 export const useLoginForm = () => {
-  const loginForm = useForm({
+  const LoginForm = useForm({
     defaultValues: {
       username: "",
       password: "",
     },
     onSubmit: async ({ value }) => {
       try {
-        const login = await axiosInstace.post<LoginEntity>(`/auth/login`, {
-          value,
-        });
+        const response = await axiosInstace.post<LoginEntity>(
+          `/auth/login`,
+          value
+        );
       } catch (error) {
         console.log(error);
       }
     },
   });
-  return { loginForm };
+  return { LoginForm };
 };
