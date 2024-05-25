@@ -22,12 +22,18 @@ import React from "react";
 import { useState } from "react";
 import { Link } from "expo-router";
 import { router } from "expo-router";
+import { useUserSession } from "@/states/useUserSession";
 export const MenuSidebar = () => {
+  const { setIsLoggedIn } = useUserSession();
   const [showModal, setShowModal] = useState(false);
   const ref = React.useRef(null);
   const handelClose = (href: string) => {
     setShowModal(false);
     router.replace(href);
+  };
+  const handleLogout = () => {
+    setIsLoggedIn(false);
+    router.replace(`/auth/login`);
   };
   return (
     <View>
@@ -94,9 +100,37 @@ export const MenuSidebar = () => {
                     Usuarios
                   </ButtonText>
                 </Button>
+                <Button
+                  size="xs"
+                  variant="outline"
+                  bg="$darkBlue500"
+                  marginRight={"auto"}
+                  onPress={() => handelClose("/auth/login")}
+                >
+                  <ButtonIcon>
+                    <AntDesign name="home" color="white" />
+                  </ButtonIcon>
+                  <ButtonText color="white" ml={"$2"}>
+                    Login
+                  </ButtonText>
+                </Button>
               </VStack>
             </ModalBody>
             <ModalFooter>
+              <Button
+                size="xs"
+                variant="outline"
+                bg="$red500"
+                marginRight={"auto"}
+                onPress={handleLogout}
+              >
+                <ButtonIcon>
+                  <AntDesign name="home" color="white" />
+                </ButtonIcon>
+                <ButtonText color="white" ml={"$2"}>
+                  Cerrar Sesion
+                </ButtonText>
+              </Button>
               <Button
                 variant="outline"
                 size="sm"
