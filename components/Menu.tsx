@@ -94,6 +94,20 @@ export const MenuSidebar = () => {
                     Usuarios
                   </ButtonText>
                 </Button>
+                <Button
+                  size="xs"
+                  variant="outline"
+                  bg="$darkBlue500"
+                  marginRight={"auto"}
+                  onPress={() => handelClose("/auth/login")}
+                >
+                  <ButtonIcon>
+                    <AntDesign name="home" color="white" />
+                  </ButtonIcon>
+                  <ButtonText color="white" ml={"$2"}>
+                    Login
+                  </ButtonText>
+                </Button>
               </VStack>
             </ModalBody>
             <ModalFooter>
