@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useLoginForm } from "./hooks/useLogin";
 import {
   AddIcon,
@@ -12,14 +12,21 @@ import {
   InputField,
   View,
 } from "@gluestack-ui/themed";
-
+import { useUserSession } from "@/states/useUserSession";
+import { router } from "expo-router";
 const loginPage = () => {
   const { LoginForm } = useLoginForm();
-
+  const { isLoggedIn } = useUserSession();
   const handleSubmitLogin = async () => {
     await LoginForm.handleSubmit();
-    console.log("submit");
+    router.replace(`/`);
   };
+  useEffect(() => {
+    if (isLoggedIn === true) {
+      router.replace(`/`);
+    }
+  }, []);
+
   return (
     <View>
       {LoginForm.Field({
