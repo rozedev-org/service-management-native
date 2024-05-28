@@ -24,7 +24,7 @@ import { Link } from "expo-router";
 import { router } from "expo-router";
 import { useUserSession } from "@/states/useUserSession";
 export const MenuSidebar = () => {
-  const { setIsLoggedIn } = useUserSession();
+  const { setIsLoggedIn, isLoggedIn } = useUserSession();
   const [showModal, setShowModal] = useState(false);
   const ref = React.useRef(null);
   const handelClose = (href: string) => {
@@ -58,79 +58,86 @@ export const MenuSidebar = () => {
             </ModalHeader>
             <ModalBody>
               <VStack gap={"$1"}>
-                <Button
-                  size="xs"
-                  variant="outline"
-                  bg="$darkBlue500"
-                  marginRight={"auto"}
-                  onPress={() => handelClose("/")}
-                >
-                  <ButtonIcon>
-                    <AntDesign name="home" color="white" />
-                  </ButtonIcon>
-                  <ButtonText color="white" ml={"$2"}>
-                    Dashboard
-                  </ButtonText>
-                </Button>
-                <Button
-                  size="xs"
-                  variant="outline"
-                  bg="$darkBlue500"
-                  marginRight={"auto"}
-                  onPress={() => handelClose("/requirements")}
-                >
-                  <ButtonIcon>
-                    <AntDesign name="home" color="white" />
-                  </ButtonIcon>
-                  <ButtonText color="white" ml={"$2"}>
-                    Requerimientos
-                  </ButtonText>
-                </Button>
-                <Button
-                  size="xs"
-                  variant="outline"
-                  bg="$darkBlue500"
-                  marginRight={"auto"}
-                  onPress={() => handelClose("/users")}
-                >
-                  <ButtonIcon>
-                    <AntDesign name="home" color="white" />
-                  </ButtonIcon>
-                  <ButtonText color="white" ml={"$2"}>
-                    Usuarios
-                  </ButtonText>
-                </Button>
-                <Button
-                  size="xs"
-                  variant="outline"
-                  bg="$darkBlue500"
-                  marginRight={"auto"}
-                  onPress={() => handelClose("/auth/login")}
-                >
-                  <ButtonIcon>
-                    <AntDesign name="home" color="white" />
-                  </ButtonIcon>
-                  <ButtonText color="white" ml={"$2"}>
-                    Login
-                  </ButtonText>
-                </Button>
+                {isLoggedIn === true ? (
+                  <>
+                    <Button
+                      size="xs"
+                      variant="outline"
+                      bg="$darkBlue500"
+                      marginRight={"auto"}
+                      onPress={() => handelClose("/")}
+                    >
+                      <ButtonIcon>
+                        <AntDesign name="home" color="white" />
+                      </ButtonIcon>
+                      <ButtonText color="white" ml={"$2"}>
+                        Dashboard
+                      </ButtonText>
+                    </Button>
+                    <Button
+                      size="xs"
+                      variant="outline"
+                      bg="$darkBlue500"
+                      marginRight={"auto"}
+                      onPress={() => handelClose("/requirements")}
+                    >
+                      <ButtonIcon>
+                        <AntDesign name="home" color="white" />
+                      </ButtonIcon>
+                      <ButtonText color="white" ml={"$2"}>
+                        Requerimientos
+                      </ButtonText>
+                    </Button>
+                    <Button
+                      size="xs"
+                      variant="outline"
+                      bg="$darkBlue500"
+                      marginRight={"auto"}
+                      onPress={() => handelClose("/users")}
+                    >
+                      <ButtonIcon>
+                        <AntDesign name="home" color="white" />
+                      </ButtonIcon>
+                      <ButtonText color="white" ml={"$2"}>
+                        Usuarios
+                      </ButtonText>
+                    </Button>
+                  </>
+                ) : (
+                  <Button
+                    size="xs"
+                    variant="outline"
+                    bg="$darkBlue500"
+                    marginRight={"auto"}
+                    onPress={() => handelClose("/auth/login")}
+                  >
+                    <ButtonIcon>
+                      <AntDesign name="home" color="white" />
+                    </ButtonIcon>
+                    <ButtonText color="white" ml={"$2"}>
+                      Login
+                    </ButtonText>
+                  </Button>
+                )}
               </VStack>
             </ModalBody>
             <ModalFooter>
-              <Button
-                size="xs"
-                variant="outline"
-                bg="$red500"
-                marginRight={"auto"}
-                onPress={handleLogout}
-              >
-                <ButtonIcon>
-                  <AntDesign name="home" color="white" />
-                </ButtonIcon>
-                <ButtonText color="white" ml={"$2"}>
-                  Cerrar Sesion
-                </ButtonText>
-              </Button>
+              {isLoggedIn === true ? (
+                <Button
+                  size="xs"
+                  variant="outline"
+                  bg="$red500"
+                  marginRight={"auto"}
+                  onPress={handleLogout}
+                >
+                  <ButtonIcon>
+                    <AntDesign name="home" color="white" />
+                  </ButtonIcon>
+                  <ButtonText color="white" ml={"$2"}>
+                    Cerrar Sesion
+                  </ButtonText>
+                </Button>
+              ) : null}
               <Button
                 variant="outline"
                 size="sm"

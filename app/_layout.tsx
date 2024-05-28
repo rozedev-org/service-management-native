@@ -22,6 +22,13 @@ export default function RootLayout() {
           }}
         />
         <Stack.Screen
+          name="requirements/add/index"
+          options={{
+            title: titleScreen,
+            headerRight: () => <MenuSidebar />,
+          }}
+        />
+        <Stack.Screen
           name="requirements/detail/[id]"
           options={{
             title: titleScreen,
