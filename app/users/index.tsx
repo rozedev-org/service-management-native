@@ -11,6 +11,7 @@ import {
   ButtonText,
 } from "@gluestack-ui/themed";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import { PaginatedResponse } from "@/types/response.interface";
 
 export default function UsersPage() {
   const [inputValue, setInputValue] = useState("");

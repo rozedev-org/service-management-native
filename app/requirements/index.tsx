@@ -14,6 +14,9 @@ export default function ReqDetailPage() {
   return (
     <View>
       <Text>Detalles</Text>
+      <Button onPress={() => router.replace("/requirements/add")}>
+        <ButtonText>Crear</ButtonText>
+      </Button>
       {reqs.map((req) => (
         <Button
           key={req}

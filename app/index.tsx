@@ -61,6 +61,20 @@ export default function Index() {
           Login
         </ButtonText>
       </Button>
+      <Button
+        size="xs"
+        variant="outline"
+        bg="$darkBlue500"
+        marginRight={"auto"}
+        onPress={() => handelClose("/requirements/add")}
+      >
+        <ButtonIcon>
+          <AntDesign name="home" color="white" />
+        </ButtonIcon>
+        <ButtonText color="white" ml={"$2"}>
+          Crear Requerimiento
+        </ButtonText>
+      </Button>
       <Text>homePage</Text>
       {isLoggedIn === true ? (
         <Text>Estas Logeado</Text>
