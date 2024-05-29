@@ -49,6 +49,13 @@ export default function RootLayout() {
             headerRight: () => <MenuSidebar />,
           }}
         />
+        <Stack.Screen
+          name="board/index"
+          options={{
+            title: titleScreen,
+            headerRight: () => <MenuSidebar />,
+          }}
+        />
       </Stack>
     </GluestackUIProvider>
   );
