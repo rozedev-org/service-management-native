@@ -18,7 +18,6 @@ const loginPage = () => {
   const { LoginForm } = useLoginForm();
   const { isLoggedIn } = useUserSession();
   const handleSubmitLogin = async () => {
-    console.log("submit");
     await LoginForm.handleSubmit();
     router.replace(`/`);
   };

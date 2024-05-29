@@ -51,13 +51,11 @@ export const useCreateReqForm = () => {
       requirementFieldValue: [],
     },
     onSubmit: async ({ value }) => {
-      console.log(value);
       try {
         const response = await axiosInstace.post<RequirementsEntity>(
           `/requirements`,
           value
         );
-        console.log("creo", response.data);
       } catch (error) {
         console.log(error);
       }

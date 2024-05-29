@@ -16,7 +16,6 @@ export const useLoginForm = () => {
           `/auth/login`,
           value
         );
-        console.log("try");
         if (response.data) {
           setIsLoggedIn(true);
         }
