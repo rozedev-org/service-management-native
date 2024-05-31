@@ -1,17 +1,10 @@
 import { View } from "react-native";
 import React from "react";
 import {
-  Popover,
   ButtonText,
-  PopoverBackdrop,
-  PopoverContent,
-  PopoverHeader,
   Heading,
-  PopoverCloseButton,
   Icon,
   CloseIcon,
-  PopoverBody,
-  PopoverFooter,
   ButtonGroup,
   Text,
   Button,
@@ -22,11 +15,12 @@ import {
   AlertDialogContent,
   AlertDialogFooter,
   AlertDialogHeader,
-  Center,
 } from "@gluestack-ui/themed";
 import { useState } from "react";
+import { RequirementEntity } from "@/app/requirements/types/requirements.types";
 
-export const ReqModal = () => {
+export const ReqModal = (props: { requirement: RequirementEntity }) => {
+  const { title, id, updatedAt, createdAt, user } = props.requirement;
   const [isOpen, setIsOpen] = useState(false);
   const handleOpen = () => {
     setIsOpen(true);
@@ -36,9 +30,9 @@ export const ReqModal = () => {
   };
   const [showAlertDialog, setShowAlertDialog] = React.useState(false);
   return (
-    <Center h={300}>
-      <Button onPress={() => setShowAlertDialog(true)}>
-        <ButtonText>Click me</ButtonText>
+    <View>
+      <Button variant="link" onPress={() => setShowAlertDialog(true)}>
+        <ButtonText>{title}</ButtonText>
       </Button>
       <AlertDialog
         isOpen={showAlertDialog}
@@ -84,6 +78,6 @@ export const ReqModal = () => {
           </AlertDialogFooter>
         </AlertDialogContent>
       </AlertDialog>
-    </Center>
+    </View>
   );
 };
