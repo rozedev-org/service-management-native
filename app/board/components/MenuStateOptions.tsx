@@ -3,6 +3,7 @@ import React, { useEffect, useState } from "react";
 import {
   AddIcon,
   Button,
+  ButtonIcon,
   ButtonText,
   GlobeIcon,
   Icon,
@@ -12,7 +13,7 @@ import {
   SettingsIcon,
   Text,
 } from "@gluestack-ui/themed";
-import { PuzzleIcon, PaintBucket } from "lucide-react-native";
+import { PuzzleIcon, PaintBucket, ChevronDown } from "lucide-react-native";
 import { useReqActions } from "@/app/requirements/hooks/useRequirementActions";
 interface MenuStateOptionsProps {
   id: number;
@@ -43,6 +44,7 @@ export const MenuStateOptions = (props: MenuStateOptionsProps) => {
           return (
             <Button {...triggerProps}>
               <ButtonText>{reqActions.current.title}</ButtonText>
+              <ButtonIcon as={ChevronDown} />
             </Button>
           );
         }}

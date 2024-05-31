@@ -63,3 +63,38 @@ export const useCreateReqForm = () => {
   });
   return { ReqForm };
 };
+export const useUpdateReqForm = (req?: RequirementEntity) => {
+  const [onError, setOnError] = useState(false);
+  const [errorMessage, setErrorMessage] = useState("");
+
+  const updateReqForm = useForm<NewReq>({
+    defaultValues: {
+      title: req?.title || "",
+      userId: req?.userId || null,
+      stateId: req?.stateId || 1,
+      requirementTypeId: req?.requirementTypeId || 0,
+      requirementFieldValue:
+        req?.requirementFieldValue && Array.isArray(req.requirementFieldValue)
+          ? req.requirementFieldValue.map((field) => ({
+              requirementTypeFieldId: field.requirementTypeField.id,
+              value: field.value,
+            }))
+          : [],
+    },
+    onSubmit: async ({ value }) => {
+      try {
+        const response = await axiosInstace.put<RequirementsEntity>(
+          `/requirements/${req?.id}`,
+          value
+        );
+      } catch (error: any) {
+        setOnError(true);
+        setErrorMessage(
+          error.response.data.message ||
+            "Ocurrió un error al intentar actualizar el requerimiento, por favor intente nuevamente"
+        );
+      }
+    },
+  });
+  return { updateReqForm, onError, errorMessage };
+};

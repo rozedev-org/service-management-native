@@ -15,11 +15,19 @@ import {
   AlertDialogContent,
   AlertDialogFooter,
   AlertDialogHeader,
+  Menu,
+  ButtonIcon,
+  MenuItem,
+  MenuItemLabel,
+  HStack,
 } from "@gluestack-ui/themed";
 import { useState } from "react";
 import { RequirementEntity } from "@/app/requirements/types/requirements.types";
 import { MenuStateOptions } from "./MenuStateOptions";
 import { useReqActions } from "@/app/requirements/hooks/useRequirementActions";
+import { MenuUsersOptions } from "./MenuUsersOptions";
+import { EllipsisVertical } from "lucide-react-native";
+
 export const ReqModal = (props: { requirement: RequirementEntity }) => {
   const { fetchReqActions, updateReqAction } = useReqActions(
     props.requirement.id
@@ -51,9 +59,39 @@ export const ReqModal = (props: { requirement: RequirementEntity }) => {
         }}
       >
         <AlertDialogBackdrop />
-        <AlertDialogContent h={800} w={400}>
+        <AlertDialogContent h={400} w={400}>
           <AlertDialogHeader>
             <Heading size="lg">Detalle de Requerimiento {id}</Heading>
+            <Menu
+              placement="bottom"
+              trigger={({ ...triggerProps }) => {
+                return (
+                  <Button
+                    variant="outline"
+                    size="xs"
+                    borderColor="$backgroundLight300"
+                    $dark-borderColor="$backgroundDark70"
+                    {...triggerProps}
+                  >
+                    <ButtonIcon
+                      as={EllipsisVertical}
+                      color="$textLight900"
+                      $dark-color="$textDark300"
+                    />
+                  </Button>
+                );
+              }}
+            >
+              <MenuItem textValue="Detalle">
+                <MenuItemLabel>Detalle</MenuItemLabel>
+              </MenuItem>
+              <MenuItem textValue="Editar">
+                <MenuItemLabel>Editar</MenuItemLabel>
+              </MenuItem>
+              <MenuItem textValue="Eliminar">
+                <MenuItemLabel>Eliminar</MenuItemLabel>
+              </MenuItem>
+            </Menu>
             <AlertDialogCloseButton>
               <Icon as={CloseIcon} />
             </AlertDialogCloseButton>
@@ -65,13 +103,17 @@ export const ReqModal = (props: { requirement: RequirementEntity }) => {
             <Text size="sm">
               Fecha de Creacion: {new Date(updatedAt).toLocaleString()}
             </Text>
-            <Text>{title}</Text>
 
-            <MenuStateOptions id={id} title={title} />
-
-            <Text>Descripcion: {title}</Text>
-
-            <Text>Responsable : {user?.userName}</Text>
+            <HStack alignItems="center" justifyContent="space-between" pt={10}>
+              <Text>Descripcion: {title}</Text>
+              <MenuStateOptions id={id} title={title} />
+            </HStack>
+            {user === null ? null : (
+              <HStack alignItems="center" pt={10}>
+                <Text>Responsable :</Text>
+                <MenuUsersOptions requirement={props.requirement} />
+              </HStack>
+            )}
           </AlertDialogBody>
           <AlertDialogFooter>
             <Button
