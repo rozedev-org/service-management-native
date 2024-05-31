@@ -66,13 +66,13 @@ export default function Index() {
         variant="outline"
         bg="$darkBlue500"
         marginRight={"auto"}
-        onPress={() => handelClose("/requirements/add")}
+        onPress={() => handelClose("/board")}
       >
         <ButtonIcon>
           <AntDesign name="home" color="white" />
         </ButtonIcon>
         <ButtonText color="white" ml={"$2"}>
-          Crear Requerimiento
+          Tablero
         </ButtonText>
       </Button>
       <Text>homePage</Text>

@@ -102,6 +102,20 @@ export const MenuSidebar = () => {
                         Usuarios
                       </ButtonText>
                     </Button>
+                    <Button
+                      size="xs"
+                      variant="outline"
+                      bg="$darkBlue500"
+                      marginRight={"auto"}
+                      onPress={() => handelClose("/board")}
+                    >
+                      <ButtonIcon>
+                        <AntDesign name="home" color="white" />
+                      </ButtonIcon>
+                      <ButtonText color="white" ml={"$2"}>
+                        Tablero
+                      </ButtonText>
+                    </Button>
                   </>
                 ) : (
                   <Button
