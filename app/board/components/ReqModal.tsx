@@ -18,8 +18,12 @@ import {
 } from "@gluestack-ui/themed";
 import { useState } from "react";
 import { RequirementEntity } from "@/app/requirements/types/requirements.types";
-
+import { MenuStateOptions } from "./MenuStateOptions";
+import { useReqActions } from "@/app/requirements/hooks/useRequirementActions";
 export const ReqModal = (props: { requirement: RequirementEntity }) => {
+  const { fetchReqActions, updateReqAction } = useReqActions(
+    props.requirement.id
+  );
   const { title, id, updatedAt, createdAt, user } = props.requirement;
   const [isOpen, setIsOpen] = useState(false);
   const handleOpen = () => {
@@ -31,7 +35,13 @@ export const ReqModal = (props: { requirement: RequirementEntity }) => {
   const [showAlertDialog, setShowAlertDialog] = React.useState(false);
   return (
     <View>
-      <Button variant="link" onPress={() => setShowAlertDialog(true)}>
+      <Button
+        variant="link"
+        onPress={async () => {
+          await fetchReqActions();
+          setShowAlertDialog(true);
+        }}
+      >
         <ButtonText>{title}</ButtonText>
       </Button>
       <AlertDialog
@@ -41,40 +51,38 @@ export const ReqModal = (props: { requirement: RequirementEntity }) => {
         }}
       >
         <AlertDialogBackdrop />
-        <AlertDialogContent>
+        <AlertDialogContent h={800} w={400}>
           <AlertDialogHeader>
-            <Heading size="lg">Deactivate account</Heading>
+            <Heading size="lg">Detalle de Requerimiento {id}</Heading>
             <AlertDialogCloseButton>
               <Icon as={CloseIcon} />
             </AlertDialogCloseButton>
           </AlertDialogHeader>
           <AlertDialogBody>
             <Text size="sm">
-              Are you sure you want to deactivate your account? Your data will
-              be permanently removed and cannot be undone.
+              Fecha de Creacion: {new Date(createdAt).toLocaleString()}
             </Text>
+            <Text size="sm">
+              Fecha de Creacion: {new Date(updatedAt).toLocaleString()}
+            </Text>
+            <Text>{title}</Text>
+
+            <MenuStateOptions id={id} title={title} />
+
+            <Text>Descripcion: {title}</Text>
+
+            <Text>Responsable : {user?.userName}</Text>
           </AlertDialogBody>
           <AlertDialogFooter>
-            <ButtonGroup space="lg">
-              <Button
-                variant="outline"
-                action="secondary"
-                onPress={() => {
-                  setShowAlertDialog(false);
-                }}
-              >
-                <ButtonText>Cancel</ButtonText>
-              </Button>
-              <Button
-                bg="$error600"
-                action="negative"
-                onPress={() => {
-                  setShowAlertDialog(false);
-                }}
-              >
-                <ButtonText>Deactivate</ButtonText>
-              </Button>
-            </ButtonGroup>
+            <Button
+              bg="$error600"
+              action="negative"
+              onPress={() => {
+                setShowAlertDialog(false);
+              }}
+            >
+              <ButtonText>Cerrar</ButtonText>
+            </Button>
           </AlertDialogFooter>
         </AlertDialogContent>
       </AlertDialog>
