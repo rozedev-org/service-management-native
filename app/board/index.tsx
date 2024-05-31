@@ -12,6 +12,7 @@ import {
   Text,
 } from "@gluestack-ui/themed";
 import { ReqStateColumn } from "./components/ReqStateColumn";
+import { router } from "expo-router";
 
 const BoardPage = () => {
   const { boardState, fetchBoard, isLoading } = useBoard();
@@ -32,7 +33,11 @@ const BoardPage = () => {
         <Text mr={"auto"} ml={15}>
           Lista
         </Text>
-        <Button ml={"auto"} mr={15}>
+        <Button
+          onPress={() => router.replace("/requirements/add")}
+          ml={"auto"}
+          mr={15}
+        >
           <ButtonText>Crear</ButtonText>
         </Button>
       </HStack>
