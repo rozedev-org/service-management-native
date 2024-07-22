@@ -47,7 +47,6 @@ export const useCreateReqForm = () => {
       title: "",
       userId: null,
       stateId: 1,
-      requirementTypeId: 0,
       requirementFieldValue: [],
     },
     onSubmit: async ({ value }) => {
@@ -72,11 +71,10 @@ export const useUpdateReqForm = (req?: RequirementEntity) => {
       title: req?.title || "",
       userId: req?.userId || null,
       stateId: req?.stateId || 1,
-      requirementTypeId: req?.requirementTypeId || 0,
       requirementFieldValue:
         req?.requirementFieldValue && Array.isArray(req.requirementFieldValue)
           ? req.requirementFieldValue.map((field) => ({
-              requirementTypeFieldId: field.requirementTypeField.id,
+              id: field.requirementTypeField.id,
               value: field.value,
             }))
           : [],
