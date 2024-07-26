@@ -19,7 +19,8 @@
       "adaptiveIcon": {
         "foregroundImage": "./common/assets/images/adaptive-icon.png",
         "backgroundColor": "#ffffff"
-      }
+      },
+      "package": "com.hectordir.servicemanagementnative"
     },
     "web": {
       "bundler": "metro",
@@ -31,6 +32,14 @@
     ],
     "experiments": {
       "typedRoutes": true
+    },
+    "extra": {
+      "router": {
+        "origin": false
+      },
+      "eas": {
+        "projectId": "c3379100-8ebd-4195-af47-55826057583d"
+      }
     }
   }
 }
